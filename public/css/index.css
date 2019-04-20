@@ -34,6 +34,7 @@ h2,
 input,
 button,
 footer {
+    user-select: none;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -53,13 +54,13 @@ header h1 {
 }
 
 .container-input {
-    width: 60%;
-    margin-left: 25%;
+    width: 70%;
+    margin-left: 23%;
     margin-top: 14vh;
 }
 
 .input {
-    width: 22.5vw;
+    width: 15vw;
     height: 5vh;
     font-size: 1vw;
     margin-right: 5vw;
@@ -67,6 +68,10 @@ header h1 {
     border: none;
     border-bottom: solid 0.05vw #DDE5ED;
     color: #DDE5ED;
+}
+
+.text {
+    width: 35vw;
 }
 
 .input::placeholder {
@@ -120,4 +125,5 @@ footer h2 {
 
 footer h2 span {
     font-family: 'Alegreya Sans';
+    user-select: all;
 }
