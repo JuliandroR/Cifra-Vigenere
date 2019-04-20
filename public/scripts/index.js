@@ -8,13 +8,17 @@ document.getElementsByTagName('button')[0].addEventListener('click', () => {
     let retorno = ""
 
     for (let i = 0; i < texto.length; i++) {
-        if (anchor > chave.length) {
-            anchor = 0
-            retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
-        } else if (anchor <= chave.length) {
-            retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
-        } else {}
-        anchor++
+        if (texto[i] == " ") {
+            retorno += texto[i]
+        } else {
+            if (anchor > chave.length) {
+                anchor = 0
+                retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
+            } else if (anchor <= chave.length) {
+                retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
+            } else {}
+            anchor++
+        }
     }
 
     document.getElementById('retorno').innerHTML = retorno
@@ -28,13 +32,17 @@ document.getElementsByTagName('button')[1].addEventListener('click', () => {
     let retorno = ""
 
     for (let i = 0; i < texto.length; i++) {
-        if (anchor > chave.length) {
-            anchor = 0
-            retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
-        } else if (anchor <= chave.length) {
-            retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
-        } else {}
-        anchor++
+        if (texto[i] == " ") {
+            retorno += texto[i]
+        } else {
+            if (anchor > chave.length) {
+                anchor = 0
+                retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
+            } else if (anchor <= chave.length) {
+                retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
+            } else {}
+            anchor++
+        }
     }
 
     document.getElementById('retorno').innerHTML = retorno
