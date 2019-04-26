@@ -2,21 +2,24 @@ const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M
 
 // Algoritmo de criptografia
 document.getElementsByTagName('button')[0].addEventListener('click', () => {
-    let texto = capturaInput(0)
-    let chave = retornaVetorPosicoes(capturaInput(1))
+    let texto = tratarPalavra(capturaInput(0))
+    let chave = retornaVetorPosicoes(tratarPalavra(capturaInput(1)))
     let anchor = 0
     let retorno = ""
 
     for (let i = 0; i < texto.length; i++) {
+        console.log(texto[i]);
+        
         if (texto[i] == " ") {
             retorno += texto[i]
-        } else {
+        }
+        else {
             if (anchor > chave.length) {
                 anchor = 0
                 retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
             } else if (anchor <= chave.length) {
                 retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
-            } else {}
+            } else { }
             anchor++
         }
     }
@@ -40,7 +43,7 @@ document.getElementsByTagName('button')[1].addEventListener('click', () => {
                 retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
             } else if (anchor <= chave.length) {
                 retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
-            } else {}
+            } else { }
             anchor++
         }
     }
@@ -94,3 +97,30 @@ const retornaVetorPosicoes = (palavra) => {
 
     return vetor
 }
+
+// Função para remover acento e manter caracteres especiais
+const tratarPalavra = (palavra) => {   
+    
+    let caracteres = ["Á", "À", "Ã", "Â", "É", "Ê", "Í", "Ì", "Ó", "Ò", "Õ", "Ú", "Ç", "/", ";", ".", ",", "-", "+", "=", "_", "!", "@", "#", "$", "%", "¨", "&", "*", "(", ")", "'"]
+    let correspondentes = ["A", "A", "A", "A", "E", "E", "I", "I", "O", "O", "O", "U", "C", "/", ";", ".", ",", "-", "+", "=", "_", "!", "@", "#", "$", "%", "¨", "&", "*", "(", ")", "'"]    
+    let retorno = ""
+
+    const trataLetra = (letra) => {
+        for (let i = 0; i < caracteres.length; i++) {
+            if (letra == caracteres[i]) {
+                return correspondentes[i]
+            }
+            else{
+                return letra;
+            }
+        }
+    }
+
+    for (let i = 0; i < palavra.length; i++) {
+        retorno += trataLetra(palavra[i])
+    }
+
+    return retorno
+}
+
+console.log(tratarPalavra("chá xía açucár"));
