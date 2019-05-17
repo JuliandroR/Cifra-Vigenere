@@ -2,8 +2,8 @@ const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M
 
 // Algoritmo de criptografia
 document.getElementsByTagName('button')[0].addEventListener('click', () => {
-    let texto = tratarPalavra(capturaInput(0))
-    let chave = retornaVetorPosicoes(tratarPalavra(capturaInput(1)))
+    let texto = (removeAcento(capturaInput(0)))
+    let chave = retornaVetorPosicoes(removeAcento(capturaInput(1)))
     let anchor = 0
     let retorno = ""
 
@@ -30,7 +30,7 @@ document.getElementsByTagName('button')[0].addEventListener('click', () => {
 // Algoritmo de Descriptografia
 document.getElementsByTagName('button')[1].addEventListener('click', () => {
     let texto = capturaInput(0)
-    let chave = retornaVetorPosicoes(capturaInput(1))
+    let chave = retornaVetorPosicoes(removeAcento(capturaInput(1)))
     let anchor = 0
     let retorno = ""
 
@@ -98,29 +98,24 @@ const retornaVetorPosicoes = (palavra) => {
     return vetor
 }
 
-// Função para remover acento e manter caracteres especiais
-const tratarPalavra = (palavra) => {   
-    
-    let caracteres = ["Á", "À", "Ã", "Â", "É", "Ê", "Í", "Ì", "Ó", "Ò", "Õ", "Ú", "Ç", "/", ";", ".", ",", "-", "+", "=", "_", "!", "@", "#", "$", "%", "¨", "&", "*", "(", ")", "'"]
-    let correspondentes = ["A", "A", "A", "A", "E", "E", "I", "I", "O", "O", "O", "U", "C", "/", ";", ".", ",", "-", "+", "=", "_", "!", "@", "#", "$", "%", "¨", "&", "*", "(", ")", "'"]    
-    let retorno = ""
+const removeAcento = (letraAcento) => {
+    let string = letraAcento.toLowerCase();
+	var mapaAcentosHex 	= {
+		a : /[\xE0-\xE6]/g,
+		e : /[\xE8-\xEB]/g,
+		i : /[\xEC-\xEF]/g,
+		o : /[\xF2-\xF6]/g,
+		u : /[\xF9-\xFC]/g,
+		c : /\xE7/g,
+		n : /\xF1/g
+	};
 
-    const trataLetra = (letra) => {
-        for (let i = 0; i < caracteres.length; i++) {
-            if (letra == caracteres[i]) {
-                return correspondentes[i]
-            }
-            else{
-                return letra;
-            }
-        }
-    }
+	for ( var letra in mapaAcentosHex ) {
+		var expressaoRegular = mapaAcentosHex[letra];
+		string = string.replace( expressaoRegular, letra );
+	}
 
-    for (let i = 0; i < palavra.length; i++) {
-        retorno += trataLetra(palavra[i])
-    }
+	return string.toUpperCase();
 
-    return retorno
 }
 
-console.log(tratarPalavra("chá xía açucár"));

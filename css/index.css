@@ -19,7 +19,8 @@
 }
 
 body {
-    background: url(../img/Password_Feature_art.gif) no-repeat;
+    /* background: url(../img/Password_Feature_art.gif) no-repeat; */
+    background: url("../img/source.gif") no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
@@ -45,7 +46,7 @@ header {
 }
 
 header h1 {
-    color: #DDE5ED;
+    color: rgb(241, 241, 241);
     font-size: 3vw;
     margin-top: 7.5vh;
     margin-left: 7.5vw;
@@ -65,8 +66,8 @@ header h1 {
     margin-right: 5vw;
     background: none;
     border: none;
-    border-bottom: solid 0.05vw #DDE5ED;
-    color: #DDE5ED;
+    border-bottom: solid 0.05vw rgb(241, 241, 241);
+    color: rgb(241, 241, 241);
 }
 
 .input::placeholder {
@@ -91,7 +92,7 @@ header h1 {
     height: 6vh;
     margin-left: 5.5vw;
     border: none;
-    background: #C6D6E3;
+    background: rgb(241, 241, 241);
     cursor: pointer;
     font-weight: bold;
     border-radius: 3px;
@@ -100,7 +101,7 @@ header h1 {
 
 .button:hover {
     background: #C6DAE7;
-    transform: scale(1.25);
+    transform: scale(1.15);
 }
 
 footer {
@@ -112,7 +113,7 @@ footer {
 }
 
 footer h2 {
-    color: #C6D6E3;
+    color: rgb(241, 241, 241);
     text-align: center;
     font-size: 2.25vw;
     font-family: 'Vollkorn';
