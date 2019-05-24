@@ -27,6 +27,12 @@ body {
     font-family: 'Hind Guntur';
 }
 
+.background{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+}
+
 body,
 header,
 main,
@@ -43,12 +49,13 @@ footer {
 header {
     width: 100%;
     height: 10vh;
+    filter: none
 }
 
 header h1 {
     color: rgb(241, 241, 241);
     font-size: 3vw;
-    margin-top: 7.5vh;
+    padding-top: 7.5vh;
     margin-left: 7.5vw;
     font-family: 'Orbitron';
 }
