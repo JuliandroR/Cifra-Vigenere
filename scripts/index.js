@@ -8,12 +8,13 @@ document.getElementsByTagName('button')[0].addEventListener('click', () => {
     let retorno = ""
 
     for (let i = 0; i < texto.length; i++) {
-        console.log(texto[i]);
-        
-        if (texto[i] == " ") {
-            retorno += texto[i]
-        }
-        else {
+        // console.log(texto[i]);
+
+        var map = { " ": " ", "!": "!", "@": "@", "#": "#", "$": "$", "%": "%", "¨": "¨", "&": "&", "*": "*", "(": "(", ")": ")", "'": "'", '"': '"', "-": "-", "_": "_", "+": "+", "=": "=", "|": "|", "<": "<", ">": ">", ":": ":", ",": ",", ".": ".", ";": ";", "/": "/", "?": "?", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": "9", "0": "0" };
+
+        texto[i].replace(/[\W\[\] ]/g, function (a) { retorno += map[a] || trata })
+
+        const trata = () => {
             if (anchor > chave.length) {
                 anchor = 0
                 retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
@@ -100,22 +101,22 @@ const retornaVetorPosicoes = (palavra) => {
 
 const removeAcento = (letraAcento) => {
     let string = letraAcento.toLowerCase();
-	var mapaAcentosHex 	= {
-		a : /[\xE0-\xE6]/g,
-		e : /[\xE8-\xEB]/g,
-		i : /[\xEC-\xEF]/g,
-		o : /[\xF2-\xF6]/g,
-		u : /[\xF9-\xFC]/g,
-		c : /\xE7/g,
-		n : /\xF1/g
-	};
+    var mapaAcentosHex = {
+        a: /[\xE0-\xE6]/g,
+        e: /[\xE8-\xEB]/g,
+        i: /[\xEC-\xEF]/g,
+        o: /[\xF2-\xF6]/g,
+        u: /[\xF9-\xFC]/g,
+        c: /\xE7/g,
+        n: /\xF1/g
+    };
 
-	for ( var letra in mapaAcentosHex ) {
-		var expressaoRegular = mapaAcentosHex[letra];
-		string = string.replace( expressaoRegular, letra );
-	}
+    for (var letra in mapaAcentosHex) {
+        var expressaoRegular = mapaAcentosHex[letra];
+        string = string.replace(expressaoRegular, letra);
+    }
 
-	return string.toUpperCase();
+    return string.toUpperCase();
 
 }
 
