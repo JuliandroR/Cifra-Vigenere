@@ -1,122 +1,37 @@
 const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+const map = [" ", "'", "!", "@", "#", "$", "%", "¨", "&", "*", "(", ")", "-", "_", "=", "+", '"', "|", ",", ".", ";", "<", ">", ":", "?", "/", "ª", "º", "§"]
 
-// Algoritmo de criptografia
-document.getElementsByTagName('button')[0].addEventListener('click', () => {
-    let texto = (removeAcento(capturaInput(0)))
-    let chave = retornaVetorPosicoes(removeAcento(capturaInput(1)))
-    let anchor = 0
-    let retorno = ""
-
-    for (let i = 0; i < texto.length; i++) {
-        // console.log(texto[i]);
-
-        var map = { " ": " ", "!": "!", "@": "@", "#": "#", "$": "$", "%": "%", "¨": "¨", "&": "&", "*": "*", "(": "(", ")": ")", "'": "'", '"': '"', "-": "-", "_": "_", "+": "+", "=": "=", "|": "|", "<": "<", ">": ">", ":": ":", ",": ",", ".": ".", ";": ";", "/": "/", "?": "?", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": "9", "0": "0" };
-
-        texto[i].replace(/[\W\[\] ]/g, function (a) { retorno += map[a] || a })
-
-        const trata = () => {
-            if (anchor > chave.length) {
-                anchor = 0
-                retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
-            } else if (anchor <= chave.length) {
-                retorno += cifraLetra(retornaPosicao(texto[i]), chave[anchor])
-            } else { }
-            anchor++
-        }
-    }
-
-    document.getElementById('retorno').innerHTML = retorno
+// Criptografa o texto
+document.getElementsByClassName('button')[0].addEventListener('click', () => {
+    let posicoes = retornaPosicoes(removeAcento(capturaInput(1)))
+    console.log(posicoes);
 })
 
-// Algoritmo de Descriptografia
-document.getElementsByTagName('button')[1].addEventListener('click', () => {
-    let texto = capturaInput(0)
-    let chave = retornaVetorPosicoes(removeAcento(capturaInput(1)))
-    let anchor = 0
-    let retorno = ""
-
-    for (let i = 0; i < texto.length; i++) {
-        if (texto[i] == " ") {
-            retorno += texto[i]
-        } else {
-            if (anchor > chave.length) {
-                anchor = 0
-                retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
-            } else if (anchor <= chave.length) {
-                retorno += descifraLetra(retornaPosicao(texto[i]), chave[anchor])
-            } else { }
-            anchor++
-        }
-    }
-
-    document.getElementById('retorno').innerHTML = retorno
-})
-
-// Algoritmo para Limpar Preechimento
-document.getElementsByTagName('button')[2].addEventListener('click', () => {
-    document.getElementsByTagName('input')[0].value = ""
-    document.getElementsByTagName('input')[1].value = ""
-    document.getElementById('retorno').innerHTML = "___________________"
-})
-
-
-// Função para capturar valor da input desejada
-const capturaInput = (posicao) => {
-    let valor = document.getElementsByTagName('input')[posicao].value
-    if (valor != "") {
-        return valor.toUpperCase()
-    } else {
-        alert('Valor Nulo!')
-    }
-}
-
-// Função que retorna o posição da letra no alfabeto.
-const retornaPosicao = (letra) => {
-    for (let i = 0; i < alfabeto.length; i++) {
-        if (alfabeto[i] == letra) {
-            return i
-        }
-    }
-}
-
-// Função de Cifrar Letra
-const cifraLetra = (Posicaoletra, valor) => {
-    return alfabeto[(Posicaoletra + valor) % alfabeto.length]
-}
-
-// Função de Descifrar Letra
-const descifraLetra = (Posicaoletra, valor) => {
-    return alfabeto[((Posicaoletra - valor) + alfabeto.length) % alfabeto.length]
-}
-
-// Função que define as posições das letras das chaves
-const retornaVetorPosicoes = (palavra) => {
-    let vetor = []
+const retornaPosicoes = (palavra) => {
+    let posicoes = []
     for (let i = 0; i < palavra.length; i++) {
-        vetor.push(retornaPosicao(palavra[i]))
+        for (let j = 0; j < alfabeto.length; j++) {
+            if (palavra[i] == alfabeto[j]) {
+                posicoes.push(j)
+            }
+        }
     }
-
-    return vetor
+    return posicoes
 }
 
-const removeAcento = (letraAcento) => {
-    let string = letraAcento.toLowerCase();
-    var mapaAcentosHex = {
-        a: /[\xE0-\xE6]/g,
-        e: /[\xE8-\xEB]/g,
-        i: /[\xEC-\xEF]/g,
-        o: /[\xF2-\xF6]/g,
-        u: /[\xF9-\xFC]/g,
-        c: /\xE7/g,
-        n: /\xF1/g
-    };
+const removeAcento = (palavra) => {
+    let texto = palavra
 
-    for (var letra in mapaAcentosHex) {
-        var expressaoRegular = mapaAcentosHex[letra];
-        string = string.replace(expressaoRegular, letra);
-    }
+    texto = texto.replace(new RegExp('[ÁÀÃÂ]', 'gi'), 'A');
+    texto = texto.replace(new RegExp('[ÉÈÊ]', 'gi'), 'E');
+    texto = texto.replace(new RegExp('[ÍÌÎ]', 'gi'), 'I');
+    texto = texto.replace(new RegExp('[ÓÒÔÕ]', 'gi'), 'O');
+    texto = texto.replace(new RegExp('[ÚÙÛ]', 'gi'), 'U');
+    texto = texto.replace(new RegExp('[Ç]', 'gi'), 'C');
 
-    return string.toUpperCase();
-
+    return texto
 }
 
+const capturaInput = (posicao) => {
+    return (document.getElementsByClassName('input')[posicao].value).toUpperCase()
+}
