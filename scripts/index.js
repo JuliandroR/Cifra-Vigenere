@@ -1,10 +1,32 @@
 const alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-const map = [" ", "'", "!", "@", "#", "$", "%", "¨", "&", "*", "(", ")", "-", "_", "=", "+", '"', "|", ",", ".", ";", "<", ">", ":", "?", "/", "ª", "º", "§"]
 
 // Criptografa o texto
 document.getElementsByClassName('button')[0].addEventListener('click', () => {
     let posicoes = retornaPosicoes(removeAcento(capturaInput(1)))
-    console.log(posicoes);
+    let palavra = removeAcento(capturaInput(0))
+    let retorno = ""
+    let anchor = 0
+
+    for (let i = 0; i < palavra.length; i++) {
+        console.log(palavra[i]);
+        
+        if(palavra[i == " "|| palavra[i] == "'"|| palavra[i] == "!"|| palavra[i] == "@"|| palavra[i] == "#"|| palavra[i] == "$"|| palavra[i] == "%"|| palavra[i] == "¨"|| palavra[i] == "&"|| palavra[i] == "*"|| palavra[i] == "("|| palavra[i] == ")"|| palavra[i] == "-"|| palavra[i] == "_"|| palavra[i] == "="|| palavra[i] == "+"|| palavra[i] == '"'|| palavra[i] == "|"|| palavra[i] == ","|| palavra[i] == "."|| palavra[i] == ";"|| palavra[i] == "<"|| palavra[i] == ">"|| palavra[i] == ":"|| palavra[i] == "?"|| palavra[i] == "/"|| palavra[i] == "ª"|| palavra[i] == "º"|| palavra[i] == "§"]){
+            retorno += palavra[i]
+        }else{
+            if(anchor == posicoes.length){
+                anchor = 0
+                retorno += alfabeto[ criptografaCaracter( retornaPosicoes( palavra[i] ), posicoes[anchor] ) ]
+                anchor++
+            }
+            else{
+                retorno += alfabeto[ criptografaCaracter( retornaPosicoes( palavra[i] ), posicoes[anchor] ) ]
+                anchor++
+            }
+        }
+        
+    }
+    console.log(retorno);
+    
 })
 
 const retornaPosicoes = (palavra) => {
@@ -35,3 +57,15 @@ const removeAcento = (palavra) => {
 const capturaInput = (posicao) => {
     return (document.getElementsByClassName('input')[posicao].value).toUpperCase()
 }
+
+const criptografaCaracter = (posicaoLetra, posicaoChave) => {
+        
+    if( ((posicaoLetra[0] + posicaoChave) % Math.pow(alfabeto.length, 2)) > alfabeto.length ){
+        return (posicaoLetra[0] + posicaoChave) % Math.pow(alfabeto.length, 2) - alfabeto.length
+    }
+    else{
+        return (posicaoLetra[0] + posicaoChave) % Math.pow(alfabeto.length, 2)
+    }
+}
+
+
