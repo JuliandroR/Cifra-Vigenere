@@ -111,6 +111,30 @@ header h1 {
     transform: scale(1.15);
 }
 
+.container-return{
+    display: none;
+    position: absolute;
+    width: 51.5vw;
+    height: 60vh;
+    background: rgba(0, 0, 0, 0.85);;
+    top: 20vh;
+    left: 24.5vw;
+    border-radius: 5px;
+    padding: 0;
+    border: 0;
+}
+
+#retorno-container{
+    box-sizing: border-box;
+    width: 47.5vw;
+    height: 45vh;
+    color: rgb(241, 241, 241);
+    font-size: 1.5vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-top: 15vh;
+}
+
 footer {
     width: 100%;
     height: 10vh;
@@ -128,4 +152,19 @@ footer h2 {
 
 footer h2 span {
     font-family: 'Alegreya Sans';
+}
+
+.button-close {
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    right: 1.5vw;
+    top: 1.5vw;
+    background: rgb(179, 179, 179);
+    border-radius: 50%;
+    border: none;
+    color: rgb(0, 10, 37);
+    font-size: 1.5vw;
+    font-weight: bold;
+    cursor: pointer;
 }
